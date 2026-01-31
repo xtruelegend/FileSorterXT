@@ -1,0 +1,20 @@
+# builds
+bin/
+obj/
+**/bin/
+**/obj/
+
+# publish output
+**/publish/
+
+# user/ide
+.vscode/
+.idea/
+*.user
+*.suo
+*.cache
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

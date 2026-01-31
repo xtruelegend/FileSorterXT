@@ -1,0 +1,134 @@
+<UserControl x:Class="FileSorterXT.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="14"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+      <StackPanel>
+        <TextBlock FontSize="22" FontWeight="SemiBold" Text="Sort Destinations (per extension)" Margin="0,0,0,14"/>
+
+<GroupBox Header="Default Destinations" Margin="0,0,0,12">
+  <StackPanel Margin="10">
+    <TextBlock Text="These are the default category destinations used when an extension is not custom-mapped." TextWrapping="Wrap" Margin="0,0,0,8"/>
+
+    <TextBlock Text="Default Pictures Folder" FontWeight="SemiBold"/>
+    <DockPanel Margin="0,4,0,8">
+      <TextBox x:Name="DefaultPicsBox"/>
+      <Button Content="Browse" Margin="8,4,0,0" Click="BrowseDefaultPics_Click"/>
+    </DockPanel>
+
+    <TextBlock Text="Default Documents Folder" FontWeight="SemiBold"/>
+    <DockPanel Margin="0,4,0,8">
+      <TextBox x:Name="DefaultDocsBox"/>
+      <Button Content="Browse" Margin="8,4,0,0" Click="BrowseDefaultDocs_Click"/>
+    </DockPanel>
+
+    <TextBlock Text="Default Music Folder" FontWeight="SemiBold"/>
+    <DockPanel Margin="0,4,0,8">
+      <TextBox x:Name="DefaultMusicBox"/>
+      <Button Content="Browse" Margin="8,4,0,0" Click="BrowseDefaultMusic_Click"/>
+    </DockPanel>
+
+    <TextBlock Text="Default Videos Folder" FontWeight="SemiBold"/>
+    <DockPanel Margin="0,4,0,0">
+      <TextBox x:Name="DefaultVideoBox"/>
+      <Button Content="Browse" Margin="8,4,0,0" Click="BrowseDefaultVideo_Click"/>
+    </DockPanel>
+
+    <TextBlock x:Name="DefaultExamplesText" TextWrapping="Wrap" Margin="0,10,0,0"/>
+  </StackPanel>
+</GroupBox>
+
+        <DockPanel>
+          <Button Content="Add Mapping" Click="AddMapping_Click"/>
+          <Button Content="Remove Selected" Click="RemoveMapping_Click" Margin="8,4,0,10"/>
+        </DockPanel>
+
+        <DataGrid x:Name="MappingGrid" AutoGenerateColumns="False" Height="420" CanUserAddRows="False" SelectionMode="Single">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Extension" Binding="{Binding Extension}" Width="120"/>
+            <DataGridTextColumn Header="Destination Folder" Binding="{Binding Destination}" Width="*"/>
+          </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock x:Name="SettingsPathText" Margin="0,10,0,0" TextWrapping="Wrap"/>
+      </StackPanel>
+    </ScrollViewer>
+
+    <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+      <StackPanel>
+        <TextBlock FontSize="22" FontWeight="SemiBold" Text="Ignore and Duplicates" Margin="0,0,0,14"/>
+
+        <GroupBox Header="Ignore Extensions (default includes programs and shortcuts)">
+          <StackPanel Margin="10">
+            <DockPanel>
+              <TextBox x:Name="IgnoreExtBox" MinWidth="200"/>
+              <Button Content="Add" Margin="8,4,0,10" Click="AddIgnoreExt_Click"/>
+              <Button Content="Remove Selected" Margin="8,4,0,10" Click="RemoveIgnoreExt_Click"/>
+            </DockPanel>
+            <ListBox x:Name="IgnoreExtList" Height="120"/>
+          </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Ignore Paths">
+          <StackPanel Margin="10">
+            <DockPanel>
+              <TextBox x:Name="IgnorePathBox" MinWidth="200" IsReadOnly="True"/>
+              <Button Content="Browse" Margin="8,4,0,10" Click="BrowseIgnorePath_Click"/>
+              <Button Content="Add" Margin="8,4,0,10" Click="AddIgnorePath_Click"/>
+              <Button Content="Remove Selected" Margin="8,4,0,10" Click="RemoveIgnorePath_Click"/>
+            </DockPanel>
+            <ListBox x:Name="IgnorePathList" Height="120"/>
+          </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Duplicate Settings">
+          <StackPanel Margin="10">
+            <TextBlock FontWeight="SemiBold" Text="Duplicate Definition"/>
+            <ComboBox x:Name="DupDefCombo" SelectionChanged="DupDefCombo_SelectionChanged">
+              <ComboBoxItem Content="Same filename only"/>
+              <ComboBoxItem Content="Same filename plus same size"/>
+              <ComboBoxItem Content="Same content (hash match)"/>
+              <ComboBoxItem Content="Quick plus Accurate modes available"/>
+            </ComboBox>
+
+            <TextBlock x:Name="QuickAccurateLabel" FontWeight="SemiBold" Text="Quick/Accurate Mode" Visibility="Collapsed"/>
+            <ComboBox x:Name="QuickAccurateCombo" Visibility="Collapsed">
+              <ComboBoxItem Content="Quick"/>
+              <ComboBoxItem Content="Accurate"/>
+            </ComboBox>
+
+            <TextBlock FontWeight="SemiBold" Text="Default Duplicate Action"/>
+            <ComboBox x:Name="DupActionCombo" SelectionChanged="DupActionCombo_SelectionChanged">
+              <ComboBoxItem Content="Do not move duplicates (default)"/>
+              <ComboBoxItem Content="Move duplicates to Duplicates folder"/>
+              <ComboBoxItem Content="Move duplicates to custom folder"/>
+            </ComboBox>
+
+            <DockPanel x:Name="CustomDupFolderPanel" Visibility="Collapsed">
+              <TextBox x:Name="CustomDupFolderBox" IsReadOnly="True"/>
+              <Button Content="Pick Folder" Margin="8,4,0,10" Click="PickCustomDupFolder_Click"/>
+            </DockPanel>
+
+            <TextBlock FontWeight="SemiBold" Text="Keeper Rule (only used if user applies duplicate move)"/>
+            <ComboBox x:Name="KeepRuleCombo">
+              <ComboBoxItem Content="Keep newest"/>
+              <ComboBoxItem Content="Keep oldest"/>
+              <ComboBoxItem Content="Ask each time (not implemented, uses keep newest)"/>
+            </ComboBox>
+
+            <CheckBox x:Name="DupConfirmCheck" Content="Require confirm when applying duplicate action" IsChecked="True"/>
+
+            <Button Content="Save Settings" Click="SaveSettings_Click"/>
+            <TextBlock x:Name="SaveStatus" TextWrapping="Wrap"/>
+          </StackPanel>
+        </GroupBox>
+      </StackPanel>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

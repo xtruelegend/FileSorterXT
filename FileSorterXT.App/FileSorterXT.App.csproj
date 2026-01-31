@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+      <ApplicationIcon>Assets\FileSorterXT.ico</ApplicationIcon>
+<UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>FileSorterXT</AssemblyName>
+    <RootNamespace>FileSorterXT</RootNamespace>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <Resource Include="Assets\FileSorterXT.ico" />
+  </ItemGroup>
+</Project>

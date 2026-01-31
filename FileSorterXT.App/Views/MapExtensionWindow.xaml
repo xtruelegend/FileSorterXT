@@ -1,0 +1,79 @@
+<Window x:Class="FileSorterXT.Views.MapExtensionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Map Extension" Height="420" Width="560"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+  <Grid Margin="14">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock x:Name="Header" FontSize="18" FontWeight="SemiBold" Grid.Row="0" Margin="0,0,0,10"/>
+
+    <!-- Step 1: Choose destination -->
+    <Grid x:Name="EditPanel" Grid.Row="1">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+
+      <TextBlock Text="Choose where this file type should go." Grid.Row="0" Margin="0,0,0,8"/>
+
+      <GroupBox Header="Pick existing folder" Grid.Row="1" Margin="0,0,0,10">
+        <DockPanel Margin="10">
+          <TextBox x:Name="ExistingFolderBox" IsReadOnly="True"/>
+          <Button Content="Browse" Margin="8,0,0,0" MinWidth="110" Click="BrowseExisting_Click"/>
+        </DockPanel>
+      </GroupBox>
+
+      <GroupBox Header="Or create a new folder" Grid.Row="2" Margin="0,0,0,10">
+        <StackPanel Margin="10">
+          <DockPanel>
+            <TextBox x:Name="CreateParentBox" IsReadOnly="True"/>
+            <Button Content="Pick Parent" Margin="8,0,0,0" MinWidth="110" Click="PickParent_Click"/>
+          </DockPanel>
+          <TextBlock Text="New folder name" Margin="0,10,0,4"/>
+          <TextBox x:Name="NewFolderNameBox" Text=""/>
+        </StackPanel>
+      </GroupBox>
+
+      <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button Content="Cancel" MinWidth="120" Click="Cancel_Click"/>
+        <Button Content="Next" MinWidth="140" Margin="8,0,0,0" Click="Next_Click" IsDefault="True"/>
+      </StackPanel>
+    </Grid>
+
+    <!-- Step 2: Review and confirm -->
+    <Grid x:Name="ReviewPanel" Grid.Row="1" Visibility="Collapsed">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+
+      <TextBlock Text="Review mapping" FontWeight="SemiBold" Grid.Row="0" Margin="0,0,0,10"/>
+      <Border Grid.Row="1" BorderBrush="#D0D0D0" BorderThickness="1" Padding="12" CornerRadius="4">
+        <StackPanel>
+          <TextBlock Text="Extension" Foreground="#666"/>
+          <TextBlock x:Name="ReviewExtText" FontSize="16" Margin="0,2,0,10"/>
+
+          <TextBlock Text="Destination" Foreground="#666"/>
+          <TextBlock x:Name="ReviewDestText" FontSize="14" TextWrapping="Wrap" Margin="0,2,0,0"/>
+        </StackPanel>
+      </Border>
+
+      <TextBlock Grid.Row="2" Margin="0,10,0,0" Foreground="#666"
+                 Text="If this looks correct, confirm to save. This mapping will be used for future sorts."/>
+
+      <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+        <Button Content="Back" MinWidth="120" Click="Back_Click"/>
+        <Button Content="Confirm Save" MinWidth="160" Margin="8,0,0,0" Click="ConfirmSave_Click" IsDefault="True"/>
+      </StackPanel>
+    </Grid>
+
+  </Grid>
+</Window>
